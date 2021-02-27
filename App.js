@@ -18,8 +18,26 @@ import {
   StatusBar,
 } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
-
+import { createStackNavigator } from '@react-navigation/stack';
 import StartView from "./src/views/StartView";
+import ClickView from './src/views/ClickView';
+
+const Stack = createStackNavigator();
+
+const MyStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Start"
+        component={StartView}
+      />
+      <Stack.Screen
+        name="Clicker"
+        component={ClickView}
+      />
+    </Stack.Navigator>
+  )
+}
 
 
 const App = () => {
@@ -27,9 +45,7 @@ const App = () => {
     <>
       <NavigationContainer>
         <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <StartView />
-        </SafeAreaView>
+        <MyStack />
       </NavigationContainer>
     </>
   );

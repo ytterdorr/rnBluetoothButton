@@ -1,27 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView } from "react-native";
 import Colors from "../../assets/Colors";
-import KeyEvent from 'react-native-keyevent';
 
-const StartView = () => {
-    const [keyText, setKeyText] = useState("Hellu");
+const StartView = ({ navigation }) => {
 
-    useEffect(() => {
-        KeyEvent.onKeyUpListener((keyEvent) => {
-            console.log(`onKeyUp keyCode: ${keyEvent.keyCode}`)
-            setKeyText("Key: " + keyEvent.keyCode);
-        })
-    }, [])
 
     return (
-        <View style={styles.body}>
-            <Text style={styles.welcomeText}>{keyText}</Text>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>
-                    Go somewhere
+        <SafeAreaView>
+            <View style={styles.body}>
+                <Text style={styles.welcomeText}>Start View</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Clicker')}
+                >
+                    <Text style={styles.buttonText}>
+                        Go to clicker
                 </Text>
-            </TouchableOpacity>
-        </View>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     )
 }
 
