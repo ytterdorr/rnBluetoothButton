@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, Text, StyleSheet, Button, TouchableOpacity, SafeAreaView, TextInput } from "react-native";
 import Colors from "../../assets/Colors";
 
 const StartView = ({ navigation }) => {
@@ -8,10 +8,10 @@ const StartView = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View style={styles.body}>
-                <Text style={styles.welcomeText}>Start View</Text>
+                <Text style={styles.welcomeText} >Start View</Text>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => navigation.navigate('Clicker')}
+                    onPress={() => navigation.navigate("Clicker")}
                 >
                     <Text style={styles.buttonText}>
                         Go to clicker

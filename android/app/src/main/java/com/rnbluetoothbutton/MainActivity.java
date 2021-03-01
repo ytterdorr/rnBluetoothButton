@@ -42,7 +42,10 @@ public class MainActivity extends ReactActivity {
     //    return super.onKeyDown(keyCode, event);
 
     // Using method #1 without blocking multiple
-    super.onKeyDown(keyCode, event);
+    // super.onKeyDown(keyCode, event);
+    // if (keyCode == KeyEvent.KEYCODE_VOLUME_UP|| keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+    //   return false;
+    // }
     return true;
   }
 
@@ -67,7 +70,7 @@ public class MainActivity extends ReactActivity {
     //    return super.onKeyUp(keyCode, event);
 
     // Using method #1
-    super.onKeyUp(keyCode, event);
+    // super.onKeyUp(keyCode, event);
     return true;
   }
 }

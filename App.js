@@ -26,7 +26,7 @@ const Stack = createStackNavigator();
 
 const MyStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Clicker">
       <Stack.Screen
         name="Start"
         component={StartView}
