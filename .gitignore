@@ -60,4 +60,4 @@ buck-out/
 
 # build stuff
 /android/app/build.gradle
-/android/gradle.properties
+android/app/release/
