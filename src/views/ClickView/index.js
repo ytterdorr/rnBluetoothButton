@@ -1,8 +1,11 @@
 import React, { useState, useEffect, Component } from "react"
-import { View, Text, Button, TouchableOpacity, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, Button, TouchableOpacity, SafeAreaView, StyleSheet, Alert } from "react-native";
 import Colors from "../../assets/Colors";
 import KeyEvent from 'react-native-keyevent';
 import ItemsCounter from "../../components/ItemsCounter";
+import { Realm } from 'realm';
+import { sessionSchema } from "../../realm";
+let realm
 
 class ClickView extends Component {
     constructor(props) {
@@ -21,9 +24,46 @@ class ClickView extends Component {
             multiClickCount: 0,
             keyCode: null,
             items: items,
-            itemCounts: itemCounts
+            itemCounts: itemCounts,
+            sessionId: 0
         }
+        realm = new Realm({
+            path: 'GeoTrashDatabase.realm',
+            schema: [
+                sessionSchema
+            ]
+        })
+
     }
+
+    createSessionInRealm = () => {
+        // Create session add to realm
+        let id = realm.objects('session_details').sorted('session_id', true).length > 0
+            ? realm.objects('session_details').sorted('session_id', true)[0].id + 1
+            : 0
+
+        this.setState({ sessionId: id });
+        realm.create('session_details', {
+            session_id: id,
+            items: []
+        });
+        Alert.alert('Success', `New session with id: ${this.state.sessionId}`, [
+            {
+                text: 'Ok',
+            }
+        ],
+            { cancelable: true });
+    }
+
+    addItemInRealm = () => {
+        // Update session, add item
+        // get session by id
+        let session = realm.objects('session_details').sorted('session_id')
+        // Append to item array
+
+    }
+
+
 
     componentDidMount() {
         KeyEvent.onKeyUpListener((keyEvent) => {
@@ -37,6 +77,7 @@ class ClickView extends Component {
             console.log(`Action: ${keyEvent.action}`);
             console.log(`Key: ${keyEvent.pressedKey}`);
         });
+        // this.createSessionInRealm();
     }
 
     componentWillUnmount() {
@@ -48,7 +89,6 @@ class ClickView extends Component {
 
         //     // if you are listening to keyMultiple
         //    KeyEvent.removeKeyMultipleListener();
-
     }
 
     updateItemCount = (multiClickCount) => {
@@ -114,7 +154,7 @@ class ClickView extends Component {
                     >
                         <Text style={styles.buttonText}>
                             Go to start
-                </Text>
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.button}
@@ -122,7 +162,7 @@ class ClickView extends Component {
                     >
                         <Text style={styles.buttonText}>
                             Count some pushes
-                </Text>
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
